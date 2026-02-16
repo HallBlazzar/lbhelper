@@ -14,3 +14,18 @@ To build a Debian image with ``lbhelper``, you need:
 
      pip install -y lbhelper
 
+
+Containerized/Virtualized Environment
+-------------------------
+
+Generally, ``lbhelper`` can run within any containerized or virtualized environment.
+However, installing some packages requires a fully functional environment and shell (e.g., `dictionaries-common <https://bugs.launchpad.net/ubuntu/+source/dictionaries-common/+bug/2062979>`__).
+To avoid possible issues, we recommend that running ``lbhelper`` on your system or a VM. If you're trying to run in a container, please consider to use the `Distrobox <https://github.com/89luca89/distrobox/tree/main>`__ with assemble manifest like: ::
+
+    [debian-builder]
+    additional_packages="git vim live-build"
+    image=debian:trixie
+    home=/tmp/lbhelper-build
+    additional_flags="--cap-add=CAP_SYSLOG --cap-add=CAP_SYS_ADMIN --privileged"
+    start_now=true
+    root=true
