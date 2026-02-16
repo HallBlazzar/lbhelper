@@ -9,3 +9,8 @@ To build a Debian image with ``lbhelper``, you need:
      sudo apt install live-build
 
    For non-Debian based system, the `live build official documents <https://live-team.pages.debian.net/live-manual/html/live-manual/installation.en.html>`__ might help.
+
+2. Install ``lbhelper`` with any package managers you prefer: ::
+
+     pip install -y lbhelper
+
