@@ -1,0 +1,56 @@
+[project]
+name = "lbhelper"
+version = "0.1.0"
+description = "lbhelper is a collection of utilities helps you build your live-build based live image"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jinja2>=3.1.6",
+    "requests>=2.32.5",
+]
+license="Apache-2.0"
+license-files=["LICEN[CS]E*"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/HallBlazzar/lbhelper"
+Issues = "https://github.com/HallBlazzar/lbhelper/issues"
+Document = "https://hallblazzar.github.io/lbhelper/source/index.html"
+
+[dependency-groups]
+dev = [
+    "build>=1.4.0",
+    "poethepoet>=0.40.0",
+    "pytest>=9.0.2",
+    "pytest-localserver>=0.10.0",
+    "sphinx>=9.1.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.27,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.poe.tasks.test]
+help = "Run unit tests"
+cmd  = "python -m pytest"
+
+# https://sphinx-rtd-tutorial.readthedocs.io/en/latest/build-the-docs.html
+[tool.poe.tasks.doc-refresh]
+help = "Regenerate document from docstrings"
+cmd = "sphinx-apidoc -o ./docs/source ./src -f"
+
+[tool.poe.tasks.doc-build-html]
+help = "Build document"
+cmd = "sphinx-build -b html ./docs ./docs/_build"
+
+[tool.poe.tasks.doc-clean]
+help = "Cleanup previous built document"
+cmd = "sphinx-build -M clean ./docs/source/ ./docs/_build"
+
+[tool.poe.tasks.doc-build]
+help = "Rebuild document"
+sequence = ["doc-clean", "doc-refresh", "doc-build-html"]

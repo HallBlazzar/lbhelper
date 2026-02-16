@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -e
+
+lb config noauto \
+    --clean \
+    --ignore-system-defaults \
+    --distribution "trixie" \
+    --proposed-updates true \
+    --archive-areas "main contrib non-free non-free-firmware" \
+    --debian-installer live \
+    --linux-packages "linux-image linux-headers" \
+    --bootappend-live "boot=live" \
+    --linux-flavours amd64 \
+    --mode debian \
+    --source "true" \
+    --image-name "myos" \
+    "${@}"

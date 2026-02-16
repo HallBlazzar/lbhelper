@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+lb clean noauto "${@}"
+
+rm -rf config/*
+rm -f build.log
