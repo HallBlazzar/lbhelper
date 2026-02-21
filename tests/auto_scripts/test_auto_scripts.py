@@ -24,7 +24,8 @@ def get_test_data():
             {},
             ExpectedFile(
                 file_path=Path("auto/build"),
-                content=get_expected_content("build")
+                content=get_expected_content("build"),
+                permission=0o755,
             ),
             id="build-script"
         ),
@@ -33,7 +34,8 @@ def get_test_data():
             {"distribution": "trixie", "image_name": "myos"},
             ExpectedFile(
                 file_path=Path("auto/config"),
-                content=get_expected_content("config")
+                content=get_expected_content("config"),
+                permission=0o755,
             ),
             id="config-script"
         ),
@@ -42,7 +44,8 @@ def get_test_data():
             {},
             ExpectedFile(
                 file_path=Path("auto/clean"),
-                content=get_expected_content("clean")
+                content=get_expected_content("clean"),
+                permission=0o755,
             ),
             id="clean-script"
         )

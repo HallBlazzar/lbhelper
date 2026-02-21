@@ -72,10 +72,10 @@ def __check_single_file_permission(subtests, expected_file: ExpectedFile, logger
             return True
 
         stat = os.stat(expected_file.file_path)
-        actual_permission = stat.st_mode
+        actual_permission = oct(stat.st_mode & 0o777)
 
-        if not actual_permission == expected_file.permission:
-            logger.error(f"File {expected_file.file_path} permission {oct(actual_permission)} does not as expected {oct(expected_file.permission)}")
+        if not actual_permission == oct(expected_file.permission):
+            logger.error(f"File {expected_file.file_path} permission {actual_permission} is not as expected {oct(expected_file.permission)}")
             return False
 
     return True
