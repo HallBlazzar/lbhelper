@@ -59,7 +59,7 @@ def build_image(
     run_lb_operation(operation=LBOperation.CONFIG, iso_build_dir=iso_build_dir)
 
     DEFAULT_LOGGER.info(f"Attach built-in targets")
-    copy_bootloaders_target = copy_bootloaders(iso_build_dir=iso_build_dir)
+    copy_bootloaders_target = copy_bootloaders()
     targets.append(copy_bootloaders_target)
 
     DEFAULT_LOGGER.info(f"Write targets")
