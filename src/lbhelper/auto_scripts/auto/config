@@ -5,7 +5,7 @@ set -e
 lb config noauto \
     --clean \
     --ignore-system-defaults \
-    --distribution "{{ distribution }}" \
+    --distribution {{ distribution }} \
     --proposed-updates true \
     --archive-areas "main contrib non-free non-free-firmware" \
     --debian-installer live \
