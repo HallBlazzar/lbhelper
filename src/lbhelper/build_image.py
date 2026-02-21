@@ -42,7 +42,10 @@ def build_image(
     :param bool skip_build: If ``True``, ``lb build`` won't run.
     """
     DEFAULT_LOGGER.info(f"Cleanup build directory {iso_build_dir}")
-    remove_build_dir(iso_build_dir=iso_build_dir, exist_ok=fresh_build)
+    if fresh_build:
+        remove_build_dir(iso_build_dir=iso_build_dir)
+    else:
+        DEFAULT_LOGGER.info(f"Skip build directory {iso_build_dir} removal as fresh_build is {fresh_build}")
 
     DEFAULT_LOGGER.info(f"Write auto-scripts")
     write_auto_script(
