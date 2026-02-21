@@ -57,8 +57,12 @@ def write_auto_script(iso_build_dir: Path, script_type: AutoScriptType, source_s
     source_script_path = script_info.default_source_script_path if source_script_path is None else source_script_path
 
     DEFAULT_LOGGER.info(f"Writing auto script '{script_type}' ...")
-    render_template_to_file(source_script_path, script_info.target_script_path, **kwargs)
+    render_template_to_file(template_path=source_script_path, target_path=script_info.target_script_path, **kwargs)
     DEFAULT_LOGGER.info(f"Auto script {script_type} saved.")
+
+    DEFAULT_LOGGER.info(f"Setting auto script {script_type} permission to 755 ...")
+    script_info.target_script_path.chmod(0o755)
+    DEFAULT_LOGGER.info(f"Auto script {script_type} permission updated")
 
 
 def __get_script_info(iso_build_dir: Path, script_type: AutoScriptType) -> __AutoScriptInfo:

@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import List
 from dataclasses import dataclass
@@ -9,6 +10,7 @@ import pytest
 class ExpectedFile:
     file_path: Path
     content: List[str]
+    permission: int = 0o0
 
 
 def check_generated_files_expected(subtests, iso_build_dir: Path, expected_files: List[ExpectedFile], logger):
@@ -39,11 +41,14 @@ def __check_files_exist_with_expected_content(subtests, expected_files: List[Exp
         if not __check_single_file_content_valid(subtests, expected_file, logger):
             result = False
 
+        if not __check_single_file_permission(subtests, expected_file, logger):
+            result = False
+
     return result
 
 
 def __check_single_file_content_valid(subtests, expected_file: ExpectedFile, logger):
-    with subtests.test(msg=f"validate file {expected_file.file_path}"):
+    with subtests.test(msg=f"validate file {expected_file.file_path} content"):
         if not expected_file.file_path.exists():
             logger.error(f"File {expected_file.file_path} does not exist")
             return False
@@ -59,6 +64,21 @@ def __check_single_file_content_valid(subtests, expected_file: ExpectedFile, log
 
         return True
 
+
+def __check_single_file_permission(subtests, expected_file: ExpectedFile, logger):
+    with subtests.test(msg=f"validate file {expected_file.file_path} permission"):
+        if expected_file.permission == 0o0:
+            logger.info(f"Expected permission of file {expected_file.file_path} is not set (0o0). Skip checking.")
+            return True
+
+        stat = os.stat(expected_file.file_path)
+        actual_permission = stat.st_mode
+
+        if not actual_permission == expected_file.permission:
+            logger.error(f"File {expected_file.file_path} permission {oct(actual_permission)} does not as expected {oct(expected_file.permission)}")
+            return False
+
+    return True
 
 def __check_no_unexpected_files(iso_build_dir: Path, expected_files: List[ExpectedFile]):
     collected_files = iso_build_dir.rglob("*")
