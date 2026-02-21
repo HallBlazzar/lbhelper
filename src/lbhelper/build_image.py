@@ -62,12 +62,12 @@ def build_image(
     DEFAULT_LOGGER.info(f"Write targets")
     TargetWriter(
         target_handlers={
-            UpstreamPackages: UpstreamPackagesWriter(iso_build_dir=iso_build_dir),
-            CustomDeb: CustomDebWriter(iso_build_dir=iso_build_dir),
-            HookScript: HookScriptWriter(iso_build_dir=iso_build_dir),
-            StaticFile: StaticFileWriter(iso_build_dir=iso_build_dir),
-            AptPreference: AptPreferencesWriter(iso_build_dir=iso_build_dir),
-            DirectConfig: DirectConfigWriter(iso_build_dir=iso_build_dir),
+            UpstreamPackages: UpstreamPackagesWriter(iso_build_dir=iso_build_dir).execute,
+            CustomDeb: CustomDebWriter(iso_build_dir=iso_build_dir).execute,
+            HookScript: HookScriptWriter(iso_build_dir=iso_build_dir).execute,
+            StaticFile: StaticFileWriter(iso_build_dir=iso_build_dir).execute,
+            AptPreference: AptPreferencesWriter(iso_build_dir=iso_build_dir).execute,
+            DirectConfig: DirectConfigWriter(iso_build_dir=iso_build_dir).execute,
         },
         targets=targets,
     ).execute()

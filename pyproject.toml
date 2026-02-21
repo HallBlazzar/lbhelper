@@ -1,6 +1,6 @@
 [project]
 name = "lbhelper"
-version = "0.1.0"
+version = "0.1.1"
 description = "lbhelper is a collection of utilities helps you build your live-build based live image"
 readme = "README.md"
 requires-python = ">=3.13"
