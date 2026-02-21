@@ -40,8 +40,5 @@ def mock_remove_dir(monkeypatch):
 
 
 def test_remove_build_dir(mock_remove_dir, test_iso_build_dir):
-    # Arrange, Assert
-    remove_build_dir(test_iso_build_dir)
-
-    # Act
+    # Arrange, Assert, Act
     remove_build_dir(test_iso_build_dir)
